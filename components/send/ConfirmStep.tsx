@@ -57,7 +57,7 @@ export function ConfirmStep({ recipient, amount, onConfirm, onBack }: ConfirmSte
         {/* Amount Card */}
         <div className="glass-card p-8 rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/5 to-secondary/5">
           <div className="text-center">
-            <p className="text-sm text-gray-400 mb-2">You're sending</p>
+            <p className="text-sm text-gray-400 mb-2">You&apos;re sending</p>
             <p className="text-5xl font-bold gradient-text mb-4">
               ${amount.toFixed(2)}
             </p>
