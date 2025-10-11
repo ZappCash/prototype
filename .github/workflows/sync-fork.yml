@@ -1,0 +1,45 @@
+name: Sync fork main branch
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  sync:
+    if: github.repository == 'zappcash/prototype'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout upstream with full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false  # important: don't use GITHUB_TOKEN creds
+
+      - name: Set git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Validate token exists
+        env:
+          TOKEN: ${{ secrets.SYNC_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "${TOKEN:-}" || { echo "SYNC_TOKEN is empty/missing"; exit 1; }
+          echo "Token length: ${#TOKEN}"
+
+      - name: Push to fork using PAT in URL
+        env:
+          TOKEN: ${{ secrets.SYNC_TOKEN }}
+        run: |
+          set -euo pipefail
+          export GIT_ASKPASS=/bin/true
+
+          git fetch origin main
+          git checkout -B sync-upstream origin/main
+
+          # Force PAT usage via remote URL (no trailing slash)
+          git remote add fork "https://x-access-token:${TOKEN}@github.com/danielcdz/prototype.git"
+          git remote -v
+
+          git push fork sync-upstream:main --force
