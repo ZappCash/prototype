@@ -29,10 +29,13 @@ export function VirtualCard({
   }, []);
 
   return (
-    <div className="perspective-1000 w-full max-w-sm mx-auto">
+    <div className="perspective-1000 w-full max-w-sm mx-auto" style={{ perspective: "1000px" }}>
       <motion.div
         className="relative w-full h-56 cursor-pointer"
-        style={{ transformStyle: "preserve-3d" }}
+        style={{ 
+          transformStyle: "preserve-3d",
+          WebkitTransformStyle: "preserve-3d"
+        }}
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.6, type: "spring" }}
         onClick={() => setIsFlipped(!isFlipped)}
@@ -40,7 +43,11 @@ export function VirtualCard({
         {/* Front of Card */}
         <div
           className="absolute inset-0 backface-hidden"
-          style={{ backfaceVisibility: "hidden" }}
+          style={{ 
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            zIndex: 2
+          }}
         >
           <div className="w-full h-full rounded-2xl bg-gradient-to-br from-black via-gray-900 to-black border border-primary/30 shadow-2xl shadow-primary/20 p-6 flex flex-col justify-between overflow-hidden relative">
             {/* Animated Background Pattern */}
@@ -118,7 +125,10 @@ export function VirtualCard({
           className="absolute inset-0 backface-hidden"
           style={{
             backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
+            WebkitTransform: "rotateY(180deg)",
+            zIndex: 1
           }}
         >
           <div className="w-full h-full rounded-2xl bg-gradient-to-br from-black via-gray-900 to-black border border-primary/30 shadow-2xl shadow-primary/20 overflow-hidden relative">
