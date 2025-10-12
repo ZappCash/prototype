@@ -20,6 +20,17 @@ export function RecurringPaymentCard({ payment, onPay, onEdit, onDelete }: Recur
     });
   };
 
+  const formatRecipient = (recipient: string, type: string) => {
+    if (type === "username") {
+      return recipient;
+    }
+    // Truncate address: first 6 + ... + last 4
+    if (recipient.length > 13) {
+      return `${recipient.slice(0, 6)}...${recipient.slice(-4)}`;
+    }
+    return recipient;
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -38,7 +49,9 @@ export function RecurringPaymentCard({ payment, onPay, onEdit, onDelete }: Recur
           
           <div className="flex-1 min-w-0">
             <h3 className="text-lg font-semibold text-white mb-1">{payment.name}</h3>
-            <p className="text-sm text-gray-400 truncate">{payment.recipient}</p>
+            <p className="text-sm text-gray-400 font-mono">
+              {formatRecipient(payment.recipient, payment.recipientType)}
+            </p>
             {payment.description && (
               <p className="text-xs text-gray-500 mt-1">{payment.description}</p>
             )}
@@ -78,11 +91,7 @@ export function RecurringPaymentCard({ payment, onPay, onEdit, onDelete }: Recur
           <Edit size={16} />
         </button>
         <button
-          onClick={() => {
-            if (confirm(`Delete "${payment.name}"?`)) {
-              onDelete(payment.id);
-            }
-          }}
+          onClick={() => onDelete(payment.id)}
           className="px-4 py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 transition-colors"
         >
           <Trash2 size={16} />

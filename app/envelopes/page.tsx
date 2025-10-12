@@ -8,6 +8,7 @@ import { EnvelopeCard } from "@/components/envelopes/EnvelopeCard";
 import { CreateEnvelopeFAB } from "@/components/envelopes/CreateEnvelopeFAB";
 import { CreateEnvelopeModal } from "@/components/envelopes/CreateEnvelopeModal";
 import { AddMoneyModal } from "@/components/envelopes/AddMoneyModal";
+import { WithdrawModal } from "@/components/envelopes/WithdrawModal";
 import { EnvelopeDetailModal } from "@/components/envelopes/EnvelopeDetailModal";
 import { mockUser, mockEnvelopes } from "@/lib/data/mock";
 import { EnvelopeType, Envelope, EnvelopeCategory } from "@/lib/types";
@@ -22,6 +23,8 @@ export default function EnvelopesPage() {
   const [createModalType, setCreateModalType] = useState<EnvelopeType>("individual");
   const [addMoneyModalOpen, setAddMoneyModalOpen] = useState(false);
   const [selectedEnvelopeForMoney, setSelectedEnvelopeForMoney] = useState<Envelope | null>(null);
+  const [withdrawModalOpen, setWithdrawModalOpen] = useState(false);
+  const [selectedEnvelopeForWithdraw, setSelectedEnvelopeForWithdraw] = useState<Envelope | null>(null);
   const [detailModalOpen, setDetailModalOpen] = useState(false);
   const [selectedEnvelopeForDetail, setSelectedEnvelopeForDetail] = useState<Envelope | null>(null);
 
@@ -80,6 +83,25 @@ export default function EnvelopesPage() {
     setUserBalance(userBalance - amount);
   };
 
+  const handleWithdrawClick = (envelopeId: string) => {
+    const envelope = envelopes.find((env) => env.id === envelopeId);
+    if (envelope) {
+      setSelectedEnvelopeForWithdraw(envelope);
+      setWithdrawModalOpen(true);
+    }
+  };
+
+  const handleWithdrawSubmit = (envelopeId: string, amount: number) => {
+    setEnvelopes(
+      envelopes.map((env) =>
+        env.id === envelopeId
+          ? { ...env, balance: env.balance - amount }
+          : env
+      )
+    );
+    setUserBalance(userBalance + amount);
+  };
+
   const handleEnvelopeClick = (envelope: Envelope) => {
     setSelectedEnvelopeForDetail(envelope);
     setDetailModalOpen(true);
@@ -126,11 +148,18 @@ export default function EnvelopesPage() {
             <div className="space-y-4 pb-6">
               {filteredEnvelopes.length > 0 ? (
                 filteredEnvelopes.map((envelope) => (
-                  <div key={envelope.id} onClick={() => handleEnvelopeClick(envelope)}>
+                  <div key={envelope.id}>
                     <EnvelopeCard
                       envelope={envelope}
+                      onClick={handleEnvelopeClick}
                       onAddMoney={(id) => {
                         handleAddMoneyClick(id);
+                      }}
+                      onWithdraw={(id) => {
+                        handleWithdrawClick(id);
+                      }}
+                      onDelete={(id) => {
+                        handleDeleteEnvelope(id);
                       }}
                     />
                   </div>
@@ -172,12 +201,18 @@ export default function EnvelopesPage() {
         onAddMoney={handleAddMoneySubmit}
       />
 
+      <WithdrawModal
+        isOpen={withdrawModalOpen}
+        onClose={() => setWithdrawModalOpen(false)}
+        envelope={selectedEnvelopeForWithdraw}
+        onWithdraw={handleWithdrawSubmit}
+      />
+
       <EnvelopeDetailModal
         isOpen={detailModalOpen}
         onClose={() => setDetailModalOpen(false)}
         envelope={selectedEnvelopeForDetail}
         onAddMoney={handleAddMoneyClick}
-        onDelete={handleDeleteEnvelope}
       />
     </div>
   );

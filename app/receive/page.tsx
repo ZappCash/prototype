@@ -117,7 +117,7 @@ export default function ReceivePage() {
             {/* Info Card */}
             <div className="mt-8 p-4 rounded-xl bg-primary/10 border border-primary/30">
               <p className="text-xs text-gray-300 text-center">
-                💡 Anyone can send you USDC using any of these methods
+                Anyone can send you USDC using any of these methods
               </p>
             </div>
           </div>

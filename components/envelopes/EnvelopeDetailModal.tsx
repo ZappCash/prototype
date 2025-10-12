@@ -1,6 +1,6 @@
 "use client";
 
-import { X, Users, Target, Share2, QrCode, Plus, Trash2 } from "lucide-react";
+import { X, Users, Target, Share2, QrCode, Plus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Envelope } from "@/lib/types";
 
@@ -9,7 +9,6 @@ interface EnvelopeDetailModalProps {
   onClose: () => void;
   envelope: Envelope | null;
   onAddMoney: (envelopeId: string) => void;
-  onDelete: (envelopeId: string) => void;
 }
 
 export function EnvelopeDetailModal({
@@ -17,20 +16,12 @@ export function EnvelopeDetailModal({
   onClose,
   envelope,
   onAddMoney,
-  onDelete,
 }: EnvelopeDetailModalProps) {
   if (!envelope) return null;
 
   const progress = envelope.goal
     ? Math.min((envelope.balance / envelope.goal) * 100, 100)
     : 0;
-
-  const handleDelete = () => {
-    if (confirm("Are you sure you want to delete this envelope?")) {
-      onDelete(envelope.id);
-      onClose();
-    }
-  };
 
   return (
     <AnimatePresence>
@@ -152,7 +143,7 @@ export function EnvelopeDetailModal({
               )}
 
               {/* Action Buttons */}
-              <div className="space-y-3">
+              <div>
                 <button
                   onClick={() => {
                     onAddMoney(envelope.id);
@@ -162,14 +153,6 @@ export function EnvelopeDetailModal({
                 >
                   <Plus size={20} />
                   Add Money
-                </button>
-
-                <button
-                  onClick={handleDelete}
-                  className="w-full px-6 py-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 font-medium transition-all flex items-center justify-center gap-2 border border-red-500/30"
-                >
-                  <Trash2 size={18} />
-                  Delete Envelope
                 </button>
               </div>
             </motion.div>

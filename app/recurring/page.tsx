@@ -7,16 +7,20 @@ import { BottomNav } from "@/components/layout/BottomNav";
 import { RecurringPaymentCard } from "@/components/recurring/RecurringPaymentCard";
 import { CreateRecurringModal } from "@/components/recurring/CreateRecurringModal";
 import { EditRecurringModal } from "@/components/recurring/EditRecurringModal";
+import { PaymentSuccessModal } from "@/components/recurring/PaymentSuccessModal";
+import { DeleteConfirmModal } from "@/components/recurring/DeleteConfirmModal";
 import { mockRecurringPayments, mockUser } from "@/lib/data/mock";
 import { RecurringPayment, RecipientType } from "@/lib/types";
-import { useRouter } from "next/navigation";
 
 export default function RecurringPage() {
-  const router = useRouter();
   const [payments, setPayments] = useState<RecurringPayment[]>(mockRecurringPayments);
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [successModalOpen, setSuccessModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<RecurringPayment | null>(null);
+  const [paidPayment, setPaidPayment] = useState<RecurringPayment | null>(null);
+  const [paymentToDelete, setPaymentToDelete] = useState<RecurringPayment | null>(null);
 
   const handleCreate = (data: {
     name: string;
@@ -51,13 +55,8 @@ export default function RecurringPage() {
     );
   };
 
-  const handleDelete = (id: string) => {
-    setPayments(payments.filter((payment) => payment.id !== id));
-  };
-
   const handlePay = (payment: RecurringPayment) => {
-    // Navigate to send page with pre-filled data
-    // For now, just update lastPaid
+    // Update lastPaid date
     setPayments(
       payments.map((p) =>
         p.id === payment.id
@@ -66,13 +65,26 @@ export default function RecurringPage() {
       )
     );
     
-    // TODO: Navigate to send page with pre-filled recipient and amount
-    alert(`Payment of $${payment.amount} to ${payment.recipient} initiated!`);
+    // Show success modal
+    setPaidPayment(payment);
+    setSuccessModalOpen(true);
   };
 
   const handleEdit = (payment: RecurringPayment) => {
     setSelectedPayment(payment);
     setEditModalOpen(true);
+  };
+
+  const handleDeleteClick = (id: string) => {
+    const payment = payments.find((p) => p.id === id);
+    if (payment) {
+      setPaymentToDelete(payment);
+      setDeleteModalOpen(true);
+    }
+  };
+
+  const handleDeleteConfirm = (id: string) => {
+    setPayments(payments.filter((payment) => payment.id !== id));
   };
 
   return (
@@ -114,7 +126,7 @@ export default function RecurringPage() {
                     payment={payment}
                     onPay={handlePay}
                     onEdit={handleEdit}
-                    onDelete={handleDelete}
+                    onDelete={handleDeleteClick}
                   />
                 ))
               ) : (
@@ -153,6 +165,19 @@ export default function RecurringPage() {
         onClose={() => setEditModalOpen(false)}
         payment={selectedPayment}
         onUpdate={handleUpdate}
+      />
+
+      <PaymentSuccessModal
+        isOpen={successModalOpen}
+        onClose={() => setSuccessModalOpen(false)}
+        payment={paidPayment}
+      />
+
+      <DeleteConfirmModal
+        isOpen={deleteModalOpen}
+        onClose={() => setDeleteModalOpen(false)}
+        payment={paymentToDelete}
+        onConfirm={handleDeleteConfirm}
       />
     </div>
   );
