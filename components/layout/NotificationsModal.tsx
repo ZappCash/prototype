@@ -135,7 +135,7 @@ export function NotificationsModal({ isOpen, onClose, notifications }: Notificat
                         </div>
                         <p className="text-gray-400 mb-2">No notifications yet</p>
                         <p className="text-sm text-gray-500">
-                          We'll notify you when something happens
+                          We&apos;ll notify you when something happens
                         </p>
                       </div>
                     )}
