@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Avatar } from "@/components/ui/Avatar";
 import { IconButton } from "@/components/ui/IconButton";
 import { QrCode, Share2, Bell } from "lucide-react";
@@ -15,6 +16,7 @@ interface HeaderProps {
 }
 
 export function Header({ user }: HeaderProps) {
+  const router = useRouter();
   const [qrModalOpen, setQrModalOpen] = useState(false);
   const [shareModalOpen, setShareModalOpen] = useState(false);
   const [notificationsModalOpen, setNotificationsModalOpen] = useState(false);
@@ -26,10 +28,13 @@ export function Header({ user }: HeaderProps) {
       <header className="sticky top-0 z-50 glass-nav border-b border-primary/10">
         <div className="flex items-center justify-between px-4 py-4">
           {/* Left: Avatar + Name */}
-          <div className="flex items-center gap-3">
+          <button
+            onClick={() => router.push("/settings/account")}
+            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+          >
             <Avatar name={user.name} size="md" />
             <span className="text-white font-semibold">{user.name}</span>
-          </div>
+          </button>
 
           {/* Right: Action Icons */}
           <div className="flex items-center gap-1">
