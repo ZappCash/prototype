@@ -76,3 +76,12 @@ export interface Notification {
   amount?: number;
   contact?: string;
 }
+
+export interface Contact {
+  id: string;
+  name: string;
+  username: string;
+  address: string;
+  avatar?: string;
+  lastTransaction?: Date;
+}

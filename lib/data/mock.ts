@@ -1,4 +1,4 @@
-import { User, Transaction, Envelope, RecurringPayment, Notification } from "@/lib/types";
+import { User, Transaction, Envelope, RecurringPayment, Notification, Contact } from "@/lib/types";
 
 export const mockUser: User = {
   id: "1",
@@ -323,5 +323,117 @@ export const mockNotifications: Notification[] = [
     read: true,
     amount: 100.00,
     contact: "Ana Pérez",
+  },
+];
+
+export const mockContacts: Contact[] = [
+  {
+    id: "c1",
+    name: "María González",
+    username: "@mariag",
+    address: "0x1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t",
+    lastTransaction: new Date("2025-10-11T10:30:00"),
+  },
+  {
+    id: "c2",
+    name: "Carlos Ramírez",
+    username: "@carlosr",
+    address: "0x9s8r7q6p5o4n3m2l1k0j9i8h7g6f5e4d3c2b1a",
+    lastTransaction: new Date("2025-10-11T09:15:00"),
+  },
+  {
+    id: "c3",
+    name: "Ana Pérez",
+    username: "@anaperez",
+    address: "0xabcdef1234567890abcdef1234567890abcdef12",
+    lastTransaction: new Date("2025-10-10T14:20:00"),
+  },
+  {
+    id: "c4",
+    name: "Pedro López",
+    username: "@pedrol",
+    address: "0x1234567890abcdef1234567890abcdef12345678",
+    lastTransaction: new Date("2025-10-09T16:30:00"),
+  },
+  {
+    id: "c5",
+    name: "Laura Martínez",
+    username: "@lauram",
+    address: "0xfedcba0987654321fedcba0987654321fedcba09",
+    lastTransaction: new Date("2025-10-07T11:30:00"),
+  },
+  {
+    id: "c6",
+    name: "Roberto Silva",
+    username: "@robertosilva",
+    address: "0x5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b",
+    lastTransaction: new Date("2025-10-06T15:45:00"),
+  },
+];
+
+// Users available for search and adding as contacts
+export const mockSearchableUsers: Contact[] = [
+  // Already added contacts
+  ...mockContacts,
+  // New users to discover
+  {
+    id: "u1",
+    name: "Sofia Rodriguez",
+    username: "@sofiarodriguez",
+    address: "0xa1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+  },
+  {
+    id: "u2",
+    name: "Diego Morales",
+    username: "@diegom",
+    address: "0xb2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1",
+  },
+  {
+    id: "u3",
+    name: "Valentina Castro",
+    username: "@valcastro",
+    address: "0xc3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2",
+  },
+  {
+    id: "u4",
+    name: "Mateo Hernández",
+    username: "@mateoh",
+    address: "0xd4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3",
+  },
+  {
+    id: "u5",
+    name: "Isabella Vargas",
+    username: "@isabellavargas",
+    address: "0xe5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4",
+  },
+  {
+    id: "u6",
+    name: "Santiago Jiménez",
+    username: "@santij",
+    address: "0xf6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5",
+  },
+  {
+    id: "u7",
+    name: "Camila Fernández",
+    username: "@camilaf",
+    address: "0xa7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6",
+  },
+  {
+    id: "u8",
+    name: "Andrés Méndez",
+    username: "@andresmendez",
+    address: "0xb8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7",
+  },
+  {
+    id: "u9",
+    name: "Lucía Rojas",
+    username: "@luciar",
+    address: "0xc9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8",
+  },
+  {
+    id: "u10",
+    name: "Nicolás Torres",
+    username: "@nicotorres",
+    address: "0xd0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9",
   },
 ];
