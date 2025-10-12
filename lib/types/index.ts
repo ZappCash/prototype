@@ -63,3 +63,16 @@ export interface RecurringPayment {
   lastPaid?: Date;
   createdAt: Date;
 }
+
+export type NotificationType = "payment" | "request" | "envelope" | "system";
+
+export interface Notification {
+  id: string;
+  type: NotificationType;
+  title: string;
+  message: string;
+  timestamp: Date;
+  read: boolean;
+  amount?: number;
+  contact?: string;
+}

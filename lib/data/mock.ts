@@ -1,4 +1,4 @@
-import { User, Transaction, Envelope, RecurringPayment } from "@/lib/types";
+import { User, Transaction, Envelope, RecurringPayment, Notification } from "@/lib/types";
 
 export const mockUser: User = {
   id: "1",
@@ -264,5 +264,64 @@ export const mockRecurringPayments: RecurringPayment[] = [
     description: "Pago de luz mensual",
     category: "Bills",
     createdAt: new Date("2025-05-01T10:00:00"),
+  },
+];
+
+export const mockNotifications: Notification[] = [
+  {
+    id: "notif1",
+    type: "payment",
+    title: "Payment Received",
+    message: "Carlos Ramírez sent you $50.00 USDC",
+    timestamp: new Date("2025-10-11T09:15:00"),
+    read: false,
+    amount: 50.00,
+    contact: "Carlos Ramírez",
+  },
+  {
+    id: "notif2",
+    type: "request",
+    title: "Payment Request",
+    message: "Roberto Silva requested $60.00 USDC",
+    timestamp: new Date("2025-10-10T15:45:00"),
+    read: false,
+    amount: 60.00,
+    contact: "Roberto Silva",
+  },
+  {
+    id: "notif3",
+    type: "envelope",
+    title: "Envelope Goal Reached",
+    message: "Your 'Vacaciones en la playa' envelope reached 50% of the goal!",
+    timestamp: new Date("2025-10-10T12:00:00"),
+    read: true,
+  },
+  {
+    id: "notif4",
+    type: "payment",
+    title: "Payment Sent",
+    message: "Successfully sent $25.50 USDC to María González",
+    timestamp: new Date("2025-10-09T18:30:00"),
+    read: true,
+    amount: 25.50,
+    contact: "María González",
+  },
+  {
+    id: "notif5",
+    type: "system",
+    title: "Welcome to ZappCash!",
+    message: "Start sending and receiving USDC payments instantly",
+    timestamp: new Date("2025-10-08T10:00:00"),
+    read: true,
+  },
+  {
+    id: "notif6",
+    type: "payment",
+    title: "Payment Received",
+    message: "Ana Pérez sent you $100.00 USDC",
+    timestamp: new Date("2025-10-07T14:20:00"),
+    read: true,
+    amount: 100.00,
+    contact: "Ana Pérez",
   },
 ];
