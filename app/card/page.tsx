@@ -31,14 +31,14 @@ export default function CardPage() {
             >
               <ArrowLeft size={24} className="text-white" />
             </button>
-            <h1 className="text-xl font-bold gradient-text">Virtual Card</h1>
+            <h1 className="text-xl font-bold text-white">ZappCash Virtual Card</h1>
             <div className="w-10" /> {/* Spacer */}
           </div>
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 py-8 overflow-y-auto flex flex-col justify-center">
-          <div className="w-full max-w-md mx-auto px-4">
+        <main className="flex-1 pt-6 overflow-y-auto flex flex-col">
+          <div className="w-full max-w-md mx-auto px-4 flex-1 flex flex-col">
             {/* Coming Soon Badge */}
             <div className="flex justify-center mb-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30">
@@ -50,17 +50,14 @@ export default function CardPage() {
             </div>
 
             {/* Title */}
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-white mb-2">
-                Your Virtual Card
-              </h2>
+            <div className="text-center mb-6">
               <p className="text-gray-400 text-sm">
                 Spend your USDC anywhere, anytime
               </p>
             </div>
 
             {/* Virtual Card */}
-            <div className="mb-12">
+            <div className="mb-8">
               <VirtualCard
                 cardNumber="4532 •••• •••• 8790"
                 cardHolder={mockUser.name.toUpperCase()}
@@ -69,13 +66,18 @@ export default function CardPage() {
               />
             </div>
 
+            {/* Spacer */}
+            <div className="flex-1"></div>
+
             {/* CTA Button */}
-            <button
-              disabled
-              className="w-full px-6 py-4 rounded-xl bg-gradient-to-r from-primary/50 to-secondary/50 text-white font-semibold transition-all opacity-50 cursor-not-allowed"
-            >
-              Request Card (Coming Soon)
-            </button>
+            <div className="pb-8">
+              <button
+                disabled
+                className="w-full px-6 py-4 rounded-xl bg-gradient-to-r from-primary/50 to-secondary/50 text-white font-semibold transition-all opacity-50 cursor-not-allowed"
+              >
+                Request Card (Coming Soon)
+              </button>
+            </div>
           </div>
         </main>
       </div>

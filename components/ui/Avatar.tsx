@@ -8,6 +8,8 @@ interface AvatarProps {
   className?: string;
 }
 
+const DEFAULT_AVATAR = "https://api.dicebear.com/7.x/avataaars/svg?seed=default&backgroundColor=00ff88,00cc66";
+
 export function Avatar({ name, src, size = "md", className }: AvatarProps) {
   const sizeClasses = {
     sm: "w-8 h-8 text-sm",
@@ -15,28 +17,26 @@ export function Avatar({ name, src, size = "md", className }: AvatarProps) {
     lg: "w-16 h-16 text-xl",
   };
 
-  const initials = name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2);
+  const avatarSrc = src || DEFAULT_AVATAR;
 
   return (
     <div
       className={cn(
-        "rounded-full flex items-center justify-center font-semibold",
+        "rounded-full flex items-center justify-center font-semibold overflow-hidden",
         "bg-gradient-to-br from-primary/20 to-secondary/20",
         "border-2 border-primary/30",
         sizeClasses[size],
         className
       )}
     >
-      {src ? (
-        <Image src={src} alt={name} width={64} height={64} className="w-full h-full rounded-full object-cover" />
-      ) : (
-        <span className="text-primary">{initials}</span>
-      )}
+      <Image
+        src={avatarSrc}
+        alt={name}
+        width={64}
+        height={64}
+        className="w-full h-full object-cover"
+        unoptimized
+      />
     </div>
   );
 }

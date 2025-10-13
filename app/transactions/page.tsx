@@ -7,7 +7,7 @@ import { SearchBar } from "@/components/transactions/SearchBar";
 import { FilterTabs } from "@/components/transactions/FilterTabs";
 import { TransactionItem } from "@/components/ui/TransactionItem";
 import { mockTransactions } from "@/lib/data/mock";
-import { TransactionType } from "@/lib/types";
+import { Transaction, TransactionType } from "@/lib/types";
 
 export default function TransactionsPage() {
   const router = useRouter();
@@ -37,6 +37,10 @@ export default function TransactionsPage() {
     return filtered;
   }, [searchQuery, activeFilter]);
 
+  const handleTransactionClick = (transaction: Transaction) => {
+    router.push(`/transaction/${transaction.id}`);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-dark-950 via-dark-900 to-black text-white flex flex-col relative overflow-hidden">
       {/* Animated Background Orbs */}
@@ -60,7 +64,7 @@ export default function TransactionsPage() {
             >
               <ArrowLeft size={24} className="text-white" />
             </button>
-            <h1 className="text-xl font-bold gradient-text">All Transactions</h1>
+            <h1 className="text-xl font-bold text-white">All Transactions</h1>
             <div className="w-10" /> {/* Spacer */}
           </div>
         </header>
@@ -107,6 +111,7 @@ export default function TransactionsPage() {
                   <TransactionItem
                     key={transaction.id}
                     transaction={transaction}
+                    onClick={() => handleTransactionClick(transaction)}
                   />
                 ))
               ) : (

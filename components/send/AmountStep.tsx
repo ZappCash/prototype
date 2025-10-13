@@ -45,14 +45,19 @@ export function AmountStep({ availableBalance, onNext, onBack }: AmountStepProps
             <div className="flex items-center justify-center">
               <span className="text-6xl font-bold text-gray-600">$</span>
               <input
-                type="number"
+                type="text"
+                inputMode="decimal"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  // Solo permitir números y un punto decimal
+                  if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                    setAmount(value);
+                  }
+                }}
                 placeholder="0.00"
-                step="0.01"
-                min="0"
-                max={availableBalance}
-                className="text-6xl font-bold bg-transparent text-white placeholder-gray-600 focus:outline-none text-center w-48"
+                className="text-6xl font-bold bg-transparent text-white placeholder-gray-600 !outline-none focus:!outline-none focus-visible:!outline-none focus:ring-0 focus:border-none outline-none border-none text-center w-48 caret-primary"
+                style={{ boxShadow: 'none', outline: 'none' }}
                 autoFocus
                 required
               />

@@ -14,11 +14,15 @@ export function TransactionsList({ transactions, maxItems = 5 }: TransactionsLis
   const router = useRouter();
   const displayedTransactions = transactions.slice(0, maxItems);
 
+  const handleTransactionClick = (transaction: Transaction) => {
+    router.push(`/transaction/${transaction.id}`);
+  };
+
   return (
     <div className="px-4 py-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-4 px-2">
-        <h2 className="text-lg font-semibold text-white">Latest txs</h2>
+        <h2 className="text-lg font-semibold text-white">Last Transactions</h2>
         <button 
           onClick={() => router.push("/transactions")}
           className="text-sm text-primary hover:text-primary/80 transition-colors font-medium"
@@ -43,7 +47,10 @@ export function TransactionsList({ transactions, maxItems = 5 }: TransactionsLis
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
               >
-                <TransactionItem transaction={transaction} />
+                <TransactionItem
+                  transaction={transaction}
+                  onClick={() => handleTransactionClick(transaction)}
+                />
               </motion.div>
             ))}
           </div>

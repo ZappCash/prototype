@@ -10,6 +10,8 @@ export interface User {
 
 export type TransactionType = "send" | "receive" | "request" | "payment";
 export type TransactionStatus = "pending" | "completed" | "failed";
+export type TransactionMethod = "wallet" | "card";
+export type PurchaseType = "online" | "in-person";
 
 export interface Transaction {
   id: string;
@@ -19,6 +21,16 @@ export interface Transaction {
   status: TransactionStatus;
   contact?: string;
   description?: string;
+  method?: TransactionMethod; // wallet or card
+  txHash?: string; // Transaction hash for blockchain
+  localAmount?: number; // Amount in local currency
+  localCurrency?: string; // e.g., "CRC"
+  exchangeRate?: number; // Exchange rate used
+  purchaseType?: PurchaseType; // online or in-person
+  city?: string;
+  country?: string;
+  cardLast4?: string; // Last 4 digits of card
+  cardBrand?: string; // e.g., "Visa", "Mastercard"
 }
 
 export type EnvelopeType = "individual" | "shared";

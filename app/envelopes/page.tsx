@@ -134,7 +134,7 @@ export default function EnvelopesPage() {
           <div className="max-w-md mx-auto px-4">
             {/* Page Title */}
             <div className="py-6">
-              <h1 className="text-3xl font-bold text-center gradient-text">
+              <h1 className="text-3xl font-bold text-center text-white">
                 Envelopes
               </h1>
             </div>

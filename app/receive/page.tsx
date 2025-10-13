@@ -38,7 +38,7 @@ export default function ReceivePage() {
             >
               <ArrowLeft size={24} className="text-white" />
             </button>
-            <h1 className="text-xl font-bold gradient-text">Receive Money</h1>
+            <h1 className="text-xl font-bold text-white">Receive Money</h1>
             <div className="w-10" /> {/* Spacer */}
           </div>
         </header>
