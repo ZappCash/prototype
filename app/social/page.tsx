@@ -93,7 +93,7 @@ export default function SocialPage() {
           <div className="max-w-2xl mx-auto px-4 py-6">
             {/* Title */}
             <div className="mb-6">
-              <h1 className="text-3xl font-bold text-center gradient-text mb-2">
+              <h1 className="text-3xl font-bold text-center text-white mb-2">
                 Social
               </h1>
               <p className="text-center text-gray-400 text-sm">

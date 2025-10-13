@@ -6,9 +6,10 @@ import { cn } from "@/lib/utils";
 
 interface TransactionItemProps {
   transaction: Transaction;
+  onClick?: () => void;
 }
 
-export function TransactionItem({ transaction }: TransactionItemProps) {
+export function TransactionItem({ transaction, onClick }: TransactionItemProps) {
   const isPositive = transaction.amount > 0;
   
   const getIcon = () => {
@@ -38,17 +39,20 @@ export function TransactionItem({ transaction }: TransactionItemProps) {
   };
 
   return (
-    <div className="flex items-center justify-between py-3 px-4 hover:bg-white/5 rounded-lg transition-colors">
+    <button
+      onClick={onClick}
+      className="w-full flex items-center justify-between py-3 px-4 hover:bg-white/5 rounded-lg transition-colors cursor-pointer"
+    >
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center">
           {getIcon()}
         </div>
-        <div>
+        <div className="text-left">
           <p className="text-white font-medium text-sm">{transaction.contact}</p>
           <p className="text-gray-400 text-xs">{formatDate(transaction.date)}</p>
         </div>
       </div>
-      
+
       <div className="text-right">
         <p
           className={cn(
@@ -60,6 +64,6 @@ export function TransactionItem({ transaction }: TransactionItemProps) {
         </p>
         <p className="text-gray-400 text-xs">{transaction.status}</p>
       </div>
-    </div>
+    </button>
   );
 }
