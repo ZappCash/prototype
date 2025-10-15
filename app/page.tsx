@@ -50,7 +50,7 @@ export default function Home() {
                    hover:scale-105 hover:shadow-2xl hover:shadow-white/50
                    active:scale-95 transition-all duration-300 ease-out cursor-pointer"
         >
-          Ingresar →
+          Login →
         </button>
 
         {/* Texto decorativo opcional */}
