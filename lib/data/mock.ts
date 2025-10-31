@@ -182,7 +182,7 @@ export const mockTransactions: Transaction[] = [
 export const mockEnvelopes: Envelope[] = [
   {
     id: "env1",
-    name: "Sobre para viejas",
+    name: "Sobre para viajes",
     description: "Saving for weekend trips",
     balance: 100.00,
     type: "individual",
